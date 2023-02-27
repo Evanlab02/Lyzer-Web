@@ -6,3 +6,6 @@ build:
 
 run:
 	@mvn exec:java
+
+run-scraper:
+	cd Scraper0-9-0/ && ./Lyzer-Scraper &

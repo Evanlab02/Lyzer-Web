@@ -27,6 +27,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Setup
+      run: cd Scraper0-9-0/ && ./Lyzer-Scraper &
     - name: Clean
       run: mvn clean
     - name: Test
