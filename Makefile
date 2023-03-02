@@ -12,6 +12,3 @@ build:
 
 run: build
 	mvn exec:java
-
-run-prod: build
-	mvn exec:java -Dexec.args="80"

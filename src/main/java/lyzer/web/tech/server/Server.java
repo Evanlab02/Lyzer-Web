@@ -13,7 +13,7 @@ public final class Server implements Runnable {
     /**
      * The default port.
      */
-    private static final int DEFAULT_PORT = 7000;
+    private static final int DEFAULT_PORT = 80;
 
     /**
      * Port to run the server on.
