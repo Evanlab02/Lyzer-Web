@@ -43,6 +43,11 @@ public final class ScraperClient extends Client {
         this.localConfig = config;
     }
 
+    /**
+     * The update interval for the data.
+     */
+    private static final int UPDATE_INTERVAL = 30 * 60000;
+
 
     /**
      * This will update the data for the given params. This will only update
@@ -193,39 +198,49 @@ public final class ScraperClient extends Client {
 
     @Override
     public void run() {
-        ConsoleLogger logger = new ConsoleLogger();
-        logger.log("Updating(This might take a while)...", "UPDATE");
+        boolean running = true;
+        while (running) {
+            ConsoleLogger logger = new ConsoleLogger();
+            logger.log("Updating(This might take a while)...", "UPDATE");
 
-        if (updateVersion()) {
-            logger.log("Updated Scraper Version", "UPDATE");
-        }
+            if (updateVersion()) {
+                logger.log("Updated Scraper Version", "UPDATE");
+            }
 
-        if (updateQueue()) {
-            logger.log("Updated Queue", "UPDATE");
-        }
+            if (updateQueue()) {
+                logger.log("Updated Queue", "UPDATE");
+            }
 
-        String[] array = new String[]{
-                "seasons",
-                "races",
-                "fastest_laps",
-                "pitstops",
-                "starting_grids",
-                "qualifying",
-                "firstPractice",
-                "secondPractice",
-                "thirdPractice",
-                "drivers",
-                "constructors",
-                "sprints",
-                "sprint_grids"
-        };
+            String[] array = new String[]{
+                    "seasons",
+                    "races",
+                    "fastest_laps",
+                    "pitstops",
+                    "starting_grids",
+                    "qualifying",
+                    "firstPractice",
+                    "secondPractice",
+                    "thirdPractice",
+                    "drivers",
+                    "constructors",
+                    "sprints",
+                    "sprint_grids"
+            };
 
-        for (String category : array) {
-            if (updateData(category)) {
-                logger.log("Updated " + category, "UPDATE");
+            for (String category : array) {
+                if (updateData(category)) {
+                    logger.log("Updated " + category, "UPDATE");
+                }
+            }
+
+            logger.log("Update complete", "UPDATE");
+
+            try {
+                Thread.sleep(UPDATE_INTERVAL);
+            } catch (InterruptedException exception) {
+                logger.log("Unexpected Error");
+                running = false;
             }
         }
-
-        logger.log("Update complete", "UPDATE");
     }
 }

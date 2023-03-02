@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lyzer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <nav>
+        <a id="seasons" href="#/seasons">Seasons</a>
+        <a id="drivers" href="#/drivers">Drivers</a>
+        <a id="teams" href="#/teams">Teams</a>
+    </nav>
+    <h1>Formula-Lyzer</h1>
+
+    <div id="dyn-nav"></div>
+
+    <div id="app"></div>
+
+    <div id="versions">
+        <p id="scraper">Scraper: 0.0.0</p>
+        <p id="web">App: 0.0.0</p>
+    </div>
+
+    <script id="default-template" type="text/handlebars-template">
+        <h2>Seasons</h2>
+        <ul>
+            {{#each seasons}}
+            <li><a href="#/seasons/{{this}}">{{this}}</a></li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-router@1.2.8/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+    <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>

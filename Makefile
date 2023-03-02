@@ -1,11 +1,17 @@
+clean:
+	mvn clean
+
+pipeline:
+	mvn clean
+	mvn test
+	mvn checkstyle:check
+	mvn compile
+
 build:
-	@mvn clean
-	@mvn test
-	@mvn checkstyle:check
-	@mvn compile
+	mvn compile
 
-run:
-	@mvn exec:java
+run: build
+	mvn exec:java
 
-run-scraper:
-	cd Scraper0-9-0/ && ./Lyzer-Scraper &
+run-prod: build
+	mvn exec:java -Dexec.args="80"
