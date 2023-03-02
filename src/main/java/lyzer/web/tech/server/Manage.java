@@ -34,9 +34,18 @@ public final class Manage {
         Thread updateScraperThread = new Thread(scraperClient);
         updateScraperThread.start();
 
-        Server server = new Server();
-        Thread serverThread = new Thread(server);
-        serverThread.start();
+        if (args.length > 0) {
+            int port = Integer.parseInt(args[0]);
+            Server server = new Server(localConfig, port);
+            Thread serverThread = new Thread(server);
+            serverThread.start();
+        } else {
+            Server server = new Server(localConfig);
+            Thread serverThread = new Thread(server);
+            serverThread.start();
+        }
+
+
     }
 
     /**
