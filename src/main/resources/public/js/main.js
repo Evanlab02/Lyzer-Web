@@ -14,7 +14,7 @@ async function displayDefaultTemplate() {
 
     let seasonData = [];
 
-    await fetch('http://localhost/seasons', {method:'GET'})
+    await fetch('http://167.99.221.169/seasons', {method:'GET'})
         .then(response => response.json())
         .then(data => {
             seasonData = Object.keys(data);
@@ -61,6 +61,6 @@ window.addEventListener('load', () => {
     router.navigateTo('/');
     displayDefaultTemplate();
 
-    updateVersion("web", "http://localhost/version")
-    updateVersion("scraper", "http://localhost/version/scraper")
+    updateVersion("web", "http://167.99.221.169/version")
+    updateVersion("scraper", "http://167.99.221.169/version/scraper")
 });
