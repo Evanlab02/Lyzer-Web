@@ -12,3 +12,6 @@ build:
 
 run: build
 	mvn exec:java
+
+run-local: build
+	mvn exec:java -Dexec.args="7000"
