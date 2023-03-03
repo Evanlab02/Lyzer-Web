@@ -3,6 +3,7 @@ package lyzer.web.tech.server;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import lyzer.web.tech.config.LocalConfig;
+import lyzer.web.tech.controllers.RaceController;
 import lyzer.web.tech.controllers.SeasonController;
 import lyzer.web.tech.controllers.VersionController;
 
@@ -75,5 +76,9 @@ public final class Server implements Runnable {
         VersionController.getScraperVersion(ctx, localConfig));
 
         app.get("/seasons", SeasonController::getSeasons);
+        app.get("seasons/{season}", SeasonController::getSeason);
+
+        app.get("/races", RaceController::getAllRaces);
+        app.get("/races/{year}/{location}", RaceController::getSingleRace);
     }
 }
