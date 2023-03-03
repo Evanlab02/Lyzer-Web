@@ -14,7 +14,7 @@ async function displayDefaultTemplate() {
 
     let seasonData = [];
 
-    await fetch('http://lyzer.tech/seasons', {method:'GET'})
+    await fetch('/seasons', {method:'GET'})
         .then(response => response.json())
         .then(data => {
             seasonData = Object.keys(data);
@@ -61,6 +61,6 @@ window.addEventListener('load', () => {
     router.navigateTo('/');
     displayDefaultTemplate();
 
-    updateVersion("web", "http://lyzer.tech/version")
-    updateVersion("scraper", "http://lyzer.tech/version/scraper")
+    updateVersion("web", "/version")
+    updateVersion("scraper", "/version/scraper")
 });
