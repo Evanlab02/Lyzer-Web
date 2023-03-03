@@ -109,12 +109,14 @@ table {
 td {
     padding: 1em;
     text-align: left;
+    border: 1px dashed black;
 }
 
 th {
     padding: 1em;
     text-align: left;
     text-decoration: underline;
+    border: 1px solid black;
 }
 
 tfoot {

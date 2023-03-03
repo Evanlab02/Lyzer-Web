@@ -7,6 +7,12 @@ pipeline:
 	mvn checkstyle:check
 	mvn compile
 
+test:
+	mvn test
+
+lint:
+	mvn checkstyle:check
+
 build:
 	mvn compile
 

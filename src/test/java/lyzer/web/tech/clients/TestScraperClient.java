@@ -26,7 +26,7 @@ public class TestScraperClient {
         ScraperClient client = new ScraperClient(this.localConfig);
         try {
             ScraperVersionResponse response = client.getVersion();
-            assertEquals("0.9.0", response.getData());
+            assertEquals("0.9.2", response.getData());
             assertEquals("Data retrieved successfully.", response.getMessage());
             assertEquals("success", response.getResult());
             assertEquals(Integer.valueOf(200), response.getStatus());
@@ -69,7 +69,7 @@ public class TestScraperClient {
             ScraperClient client = new ScraperClient(this.localConfig);
             assertTrue(client.updateVersion());
             assertFalse(client.updateVersion());
-            assertEquals("0.9.0", localConfig.getScraperVersion());
+            assertEquals("0.9.2", localConfig.getScraperVersion());
             localConfig.setScraperVersion("");
             JsonWriter jsonWriter = new JsonWriter("localConfig.json");
             jsonWriter.writeFile(localConfig);

@@ -13,12 +13,12 @@
 
 <body>
     <nav class="center">
-        <a id="seasons" href="#/seasons">Seasons</a>
+        <a id="results" href="#/results/summaries">Results</a>
         <a id="drivers" href="#/drivers">Drivers</a>
         <a id="teams" href="#/teams">Teams</a>
     </nav>
 
-    <div id="dyn-nav"></div>
+    <div id="dynamic-nav"></div>
     
     <div class="center">
         <h1>Formula-Lyzer</h1>
@@ -31,9 +31,13 @@
         <p id="web">App: 0.0.0</p>
     </div>
 
+    <script id="error-template" type="text/handlebars-template">
+        <h1>Page not found</h1>
+    </script>
+
     <script id="default-template" type="text/handlebars-template">
         <div class="center">
-            <h2>Seasons</h2>
+            <h2>Search - Season Results</h2>
         </div>
         <div class="center">
             <form id="seasons-form">
@@ -43,8 +47,87 @@
                     <option>{{this}}</option>
                     {{/each}}
                 </select>
-                <input disabled type="submit" name="submit" value="Find Results">
+                <div id="submit-button">
+                <input type="submit" name="submit" value="Find Results">
+                </div>
             </form>
+        </div>
+    </script>
+
+    <script id="results-races-template" type="text/handlebars-template">
+        <div class="center">
+            <h2>Search - Race Results</h2>
+        </div>
+        <div class="center">
+            <form id="races-form">
+                <label for="year-dd">Year</label>
+                <select name="year-dd" id="year-dd">
+                    {{#each years}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                <label for="location-dd">Location</label>
+                <div id="location-div">
+                    <select name="location-dd" id="location-dd">
+                        {{#each locations}}
+                        <option>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div id="submit-button">
+                    <input type="submit" name="submit" value="Find Results">
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script id="populate-location-dropdown" type="text/handlebars-template">
+        <select name="location-dd" id="location-dd">
+            {{#each locations}}
+            <option>{{this}}</option>
+            {{/each}}
+        </select>
+    </script>
+
+    <script id="default-nav" type="text/handlebars-template">
+        <nav class="center">
+            <a id="summaries" href="#/results/summaries">Summaries</a>
+            <a id="races" href="#/results/races">Races</a>
+            <a id="fastest_laps" href="#/fastest_laps">Fastest Laps</a>
+            <a id="pit_stops" href="#/pit_stops">Pit Stops</a>
+            <a id="starting_grids" href="#/starting_grids">Starting Grids</a>
+            <a id="qualifying" href="#/qualifying">Qualifying</a>
+            <a id="first_practice" href="#/first_practice">First Practice</a>
+            <a id="second_practice" href="#/second_practice">Second Practice</a>
+            <a id="third_practice" href="#/third_practice">Third Practice</a>
+            <a id="sprints" href="#/sprints">Sprints</a>
+            <a id="sprint_grids" href="#/sprint_grids">Sprint Grids</a>
+        </nav>
+    </script>
+
+    <script id="default-table-template" type="text/handlebars-template">
+        <div class="center">
+            <h2>{{mainHeader}}</h2>
+        </div>
+        <div class="center">
+            <table>
+                <thead>
+                    <tr>
+                        {{#each headers}}
+                        <th>{{this}}</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr>
+                        {{#each this}}
+                        <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </script>
 
