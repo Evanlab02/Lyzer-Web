@@ -1,20 +1,31 @@
 package lyzer.web.tech.controllers;
 
 import java.io.IOException;
-
 import org.json.JSONObject;
-
-import com.google.gson.JsonObject;
-
 import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
-public class RaceController {
+/**
+ * RaceController.
+ */
+public final class RaceController {
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private RaceController() {
     }
 
+    /**
+     * Internal error code.
+     */
     private static final int INTERNAL_ERROR = 500;
 
+    /**
+     * Gets all the races results.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getAllRaces(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("races.json");
@@ -27,6 +38,11 @@ public class RaceController {
         }
     }
 
+    /**
+     * Gets a single race results.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getSingleRace(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("races.json");
@@ -40,10 +56,6 @@ public class RaceController {
             ctx.contentType("application/json");
             ctx.result(finalResult.toString());
         } catch (IOException exception) {
-            exception.printStackTrace();
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        } catch (Exception exception) {
             exception.printStackTrace();
             ctx.status(INTERNAL_ERROR);
             ctx.result("{}");
