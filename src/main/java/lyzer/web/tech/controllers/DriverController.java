@@ -7,7 +7,11 @@ import org.json.JSONObject;
 import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
-public class DriverController {
+public final class DriverController {
+
+    /**
+     * Private constructor to avoid instantiation.
+     */
     private DriverController() {
     }
 
@@ -33,6 +37,11 @@ public class DriverController {
         }
     };
 
+    /**
+     * Gets the results for a given driver.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getSingleResult(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("drivers.json");
@@ -54,6 +63,11 @@ public class DriverController {
     }
 
 
+    /**
+     * This method gets the driver standings for a given year.
+     *
+     * @param ctx
+     */
     public static void getDriverStandings(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("drivers.json");

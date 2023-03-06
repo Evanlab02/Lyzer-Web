@@ -7,7 +7,11 @@ import org.json.JSONObject;
 import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
-public class TeamController {
+public final class TeamController {
+
+    /**
+     * Private constructor to avoid instantiation.
+     */
     private TeamController() {
     }
 
@@ -15,7 +19,13 @@ public class TeamController {
      * Internal error code.
      */
     private static final int INTERNAL_ERROR = 500;
-    
+
+
+    /**
+     * Gets all the results for the teams.
+     *
+     * @param ctx
+     */
     public static void getAllResults(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("constructors.json");
@@ -28,6 +38,11 @@ public class TeamController {
         }
     };
 
+    /**
+     * Gets the results for a given team.
+     *
+     * @param ctx
+     */
     public static void getTeamResults(final Context ctx) {
         try {
             JsonReader reader = new JsonReader("constructors.json");

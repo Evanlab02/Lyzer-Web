@@ -81,7 +81,8 @@ public final class Server implements Runnable {
         app.get("seasons/{season}", SeasonController::getSeason);
 
         app.get("/results/{dataType}", ResultController::getAllResults);
-        app.get("/results/{dataType}/{year}/{location}", ResultController::getSingleResult);
+        app.get("/results/{dataType}/{year}/{location}",
+        ResultController::getSingleResult);
 
         app.get("/drivers", DriverController::getAllResults);
         app.get("/drivers/{year}", DriverController::getDriverStandings);
