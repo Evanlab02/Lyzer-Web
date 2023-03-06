@@ -20,7 +20,7 @@ public final class VersionController {
      */
     public static void getVersion(final Context ctx) {
         ctx.contentType("application/json");
-        ctx.result("{\"version\": \"0.3.0\"}");
+        ctx.result("{\"version\": \"0.4.0\"}");
     }
 
     /**

@@ -3,8 +3,10 @@ package lyzer.web.tech.server;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import lyzer.web.tech.config.LocalConfig;
-import lyzer.web.tech.controllers.RaceController;
+import lyzer.web.tech.controllers.DriverController;
+import lyzer.web.tech.controllers.ResultController;
 import lyzer.web.tech.controllers.SeasonController;
+import lyzer.web.tech.controllers.TeamController;
 import lyzer.web.tech.controllers.VersionController;
 
 /**
@@ -78,7 +80,15 @@ public final class Server implements Runnable {
         app.get("/seasons", SeasonController::getSeasons);
         app.get("seasons/{season}", SeasonController::getSeason);
 
-        app.get("/races", RaceController::getAllRaces);
-        app.get("/races/{year}/{location}", RaceController::getSingleRace);
+        app.get("/results/{dataType}", ResultController::getAllResults);
+        app.get("/results/{dataType}/{year}/{location}", ResultController::getSingleResult);
+
+        app.get("/drivers", DriverController::getAllResults);
+        app.get("/drivers/{year}", DriverController::getDriverStandings);
+        app.get("/drivers/{year}/{driverSurname}/{driverName}",
+        DriverController::getSingleResult);
+
+        app.get("/constructors", TeamController::getAllResults);
+        app.get("/constructors/{year}/{team}", TeamController::getTeamResults);
     }
 }

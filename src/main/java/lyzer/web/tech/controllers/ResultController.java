@@ -6,14 +6,14 @@ import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
 /**
- * RaceController.
+ * ResultController.
  */
-public final class RaceController {
+public final class ResultController {
 
     /**
      * Private constructor to prevent instantiation.
      */
-    private RaceController() {
+    private ResultController() {
     }
 
     /**
@@ -22,13 +22,14 @@ public final class RaceController {
     private static final int INTERNAL_ERROR = 500;
 
     /**
-     * Gets all the races results.
+     * Gets all the results for the data type.
      *
      * @param ctx The context of the request.
      */
-    public static void getAllRaces(final Context ctx) {
+    public static void getAllResults(final Context ctx) {
         try {
-            JsonReader reader = new JsonReader("races.json");
+            String dataType = ctx.pathParam("dataType");
+            JsonReader reader = new JsonReader(dataType + ".json");
             String fileContent = reader.readFile();
             ctx.contentType("application/json");
             ctx.result(fileContent);
@@ -39,13 +40,14 @@ public final class RaceController {
     }
 
     /**
-     * Gets a single race results.
+     * Gets the results for a single event and data type.
      *
      * @param ctx The context of the request.
      */
-    public static void getSingleRace(final Context ctx) {
+    public static void getSingleResult(final Context ctx) {
         try {
-            JsonReader reader = new JsonReader("races.json");
+            String dataType = ctx.pathParam("dataType");
+            JsonReader reader = new JsonReader(dataType + ".json");
             String fileContent = reader.readFile();
             JSONObject json = new JSONObject(fileContent);
             String year = ctx.pathParam("year");
