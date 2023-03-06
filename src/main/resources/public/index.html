@@ -15,7 +15,7 @@
     <nav class="center">
         <a id="results" href="#/results/summaries">Results</a>
         <a id="drivers" href="#/drivers">Drivers</a>
-        <a id="teams" href="#/teams">Teams</a>
+        <a id="teams" href="#/constructors">Teams</a>
     </nav>
 
     <div id="dynamic-nav"></div>
@@ -54,12 +54,12 @@
         </div>
     </script>
 
-    <script id="results-races-template" type="text/handlebars-template">
+    <script id="results-form-template" type="text/handlebars-template">
         <div class="center">
-            <h2>Search - Race Results</h2>
+            <h2>{{mainHeader}}</h2>
         </div>
         <div class="center">
-            <form id="races-form">
+            <form id="results-form">
                 <label for="year-dd">Year</label>
                 <select name="year-dd" id="year-dd">
                     {{#each years}}
@@ -81,6 +81,60 @@
         </div>
     </script>
 
+    <script id="driver-form-template" type="text/handlebars-template">
+        <div class="center">
+            <h2>Search - Drivers Results</h2>
+        </div>
+        <div class="center">
+            <form id="drivers-form">
+                <label for="year-dd">Year</label>
+                <select name="year-dd" id="year-dd">
+                    {{#each years}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                <label for="driver-dd">Driver</label>
+                <div id="driver-div">
+                    <select name="driver-dd" id="driver-dd">
+                        {{#each drivers}}
+                        <option>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div id="submit-button">
+                    <input type="submit" name="submit" value="Find Driver Results">
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script id="team-form-template" type="text/handlebars-template">
+        <div class="center">
+            <h2>Search - Team Results</h2>
+        </div>
+        <div class="center">
+            <form id="teams-form">
+                <label for="year-dd">Year</label>
+                <select name="year-dd" id="year-dd">
+                    {{#each years}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                <label for="team-dd">Team</label>
+                <div id="team-div">
+                    <select name="team-dd" id="team-dd">
+                        {{#each teams}}
+                        <option>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div id="submit-button">
+                    <input type="submit" name="submit" value="Find Team Results">
+                </div>
+            </form>
+        </div>
+    </script>
+
     <script id="populate-location-dropdown" type="text/handlebars-template">
         <select name="location-dd" id="location-dd">
             {{#each locations}}
@@ -89,20 +143,43 @@
         </select>
     </script>
 
+    <script id="populate-driver-dropdown" type="text/handlebars-template">
+        <select name="driver-dd" id="driver-dd">
+            {{#each drivers}}
+            <option>{{this}}</option>
+            {{/each}}
+        </select>
+    </script>
+
+    <script id="populate-team-dropdown" type="text/handlebars-template">
+        <select name="team-dd" id="team-dd">
+            {{#each teams}}
+            <option>{{this}}</option>
+            {{/each}}
+        </select>
+    </script>
+
     <script id="default-nav" type="text/handlebars-template">
         <nav class="center">
-            <a id="summaries" href="#/results/summaries">Summaries</a>
             <a id="races" href="#/results/races">Races</a>
-            <a id="fastest_laps" href="#/fastest_laps">Fastest Laps</a>
-            <a id="pit_stops" href="#/pit_stops">Pit Stops</a>
-            <a id="starting_grids" href="#/starting_grids">Starting Grids</a>
-            <a id="qualifying" href="#/qualifying">Qualifying</a>
-            <a id="first_practice" href="#/first_practice">First Practice</a>
-            <a id="second_practice" href="#/second_practice">Second Practice</a>
-            <a id="third_practice" href="#/third_practice">Third Practice</a>
-            <a id="sprints" href="#/sprints">Sprints</a>
-            <a id="sprint_grids" href="#/sprint_grids">Sprint Grids</a>
+            <a id="fastest_laps" href="#/results/fastest_laps">Fastest Laps</a>
+            <a id="pit_stops" href="#/results/pitstops">Pit Stops</a>
+            <a id="starting_grids" href="#/results/starting_grids">Starting Grids</a>
+            <a id="qualifying" href="#/results/qualifying">Qualifying</a>
+            <a id="first_practice" href="#/results/firstPractice">First Practice</a>
+            <a id="second_practice" href="#/results/secondPractice">Second Practice</a>
+            <a id="third_practice" href="#/results/thirdPractice">Third Practice</a>
+            <a id="sprints" href="#/results/sprints">Sprints</a>
+            <a id="sprint_grids" href="#/results/sprint_grids">Sprint Grids</a>
         </nav>
+    </script>
+
+    <script id="driver-nav" type="text/handlebars-template">
+        <div></div>
+    </script>
+
+    <script id="team-nav" type="text/handlebars-template">
+        <div></div>
     </script>
 
     <script id="default-table-template" type="text/handlebars-template">

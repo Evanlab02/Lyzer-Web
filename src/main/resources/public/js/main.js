@@ -1,5 +1,7 @@
-import { displayRaceForm, viewRaceResults } from "./raceResults.js";
+import { displaySearchPage, viewResults } from "./resultsCompiler.js";
 import { viewSeasonSummary } from "./seasonSummary.js";
+import { displayDriverSearchPage, viewSpecificDriverResults, viewAllDriversResults } from "./driverCompiler.js";
+import { displayTeamSearchPage, viewTeamResults } from "./teamCompiler.js";
 
 function updateVersion(elementId, url) {
     const version = document.getElementById(elementId)
@@ -51,7 +53,9 @@ window.addEventListener('load', () => {
     const errorTemplate = Handlebars.compile($('#error-template').html());
     const defaultTemplate = Handlebars.compile($('#default-template').html());
     const defaultTableTemplate = Handlebars.compile($('#default-table-template').html());
-    const resultsRacesTemplate = Handlebars.compile($("#results-races-template").html());
+    const resultsFormTemplate = Handlebars.compile($("#results-form-template").html());
+    const driverFormTemplate = Handlebars.compile($("#driver-form-template").html());
+    const teamFormTemplate = Handlebars.compile($("#team-form-template").html());
 
     const router = new Router({
         mode:'hash',
@@ -74,16 +78,47 @@ window.addEventListener('load', () => {
         viewSeasonSummary(season);
     });
 
-    router.add("/results/races", async () => {
-        let html = resultsRacesTemplate();
+    router.add("/results/{dataType}", async (dataType) => {
+        let html = resultsFormTemplate();
         app.html(html);
-        displayRaceForm(router);
+        displaySearchPage(router, dataType)
     });
 
-    router.add("/results/races/{year}/{location}", async (year, location) => {
+    router.add("/results/{dataType}/{year}/{location}", async (dataType, year, location) => {
         let html = defaultTableTemplate();
         app.html(html);
-        viewRaceResults(year, location);
+        viewResults(dataType, year, location);
+    });
+
+    router.add("/drivers", async () => {
+        let html = driverFormTemplate();
+        app.html(html);
+        displayDriverSearchPage(router);
+    });
+
+    router.add("/drivers/{year}", async (year) => {
+        let html = defaultTableTemplate();
+        app.html(html);
+        viewAllDriversResults(year);
+    });
+
+    router.add("/drivers/{year}/{driverSurname}/{driverName}",
+    async (year, driverSurname, driverName) => {
+        let html = defaultTableTemplate();
+        app.html(html);
+        viewSpecificDriverResults(year, driverSurname, driverName);
+    });
+
+    router.add("/constructors", async () => {
+        let html = teamFormTemplate();
+        app.html(html);
+        displayTeamSearchPage(router);        
+    });
+
+    router.add("/constructors/{year}/{team}", async (year, team) => {
+        let html = defaultTableTemplate();
+        app.html(html);
+        viewTeamResults(year, team);
     });
 
     router.addUriListener();

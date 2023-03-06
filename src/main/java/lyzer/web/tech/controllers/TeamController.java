@@ -1,19 +1,18 @@
 package lyzer.web.tech.controllers;
 
 import java.io.IOException;
+
 import org.json.JSONObject;
+
 import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
-/**
- * RaceController.
- */
-public final class RaceController {
+public final class TeamController {
 
     /**
-     * Private constructor to prevent instantiation.
+     * Private constructor to avoid instantiation.
      */
-    private RaceController() {
+    private TeamController() {
     }
 
     /**
@@ -21,14 +20,15 @@ public final class RaceController {
      */
     private static final int INTERNAL_ERROR = 500;
 
+
     /**
-     * Gets all the races results.
+     * Gets all the results for the teams.
      *
-     * @param ctx The context of the request.
+     * @param ctx
      */
-    public static void getAllRaces(final Context ctx) {
+    public static void getAllResults(final Context ctx) {
         try {
-            JsonReader reader = new JsonReader("races.json");
+            JsonReader reader = new JsonReader("constructors.json");
             String fileContent = reader.readFile();
             ctx.contentType("application/json");
             ctx.result(fileContent);
@@ -36,23 +36,23 @@ public final class RaceController {
             ctx.status(INTERNAL_ERROR);
             ctx.result("{}");
         }
-    }
+    };
 
     /**
-     * Gets a single race results.
+     * Gets the results for a given team.
      *
-     * @param ctx The context of the request.
+     * @param ctx
      */
-    public static void getSingleRace(final Context ctx) {
+    public static void getTeamResults(final Context ctx) {
         try {
-            JsonReader reader = new JsonReader("races.json");
+            JsonReader reader = new JsonReader("constructors.json");
             String fileContent = reader.readFile();
             JSONObject json = new JSONObject(fileContent);
             String year = ctx.pathParam("year");
-            String location = ctx.pathParam("location");
-            location = location.replace("_", " ");
             JSONObject result = json.getJSONObject(year);
-            JSONObject finalResult = result.getJSONObject(location);
+            String team = ctx.pathParam("team");
+            team = team.replaceAll("_", " ");
+            JSONObject finalResult = result.getJSONObject(team);
             ctx.contentType("application/json");
             ctx.result(finalResult.toString());
         } catch (IOException exception) {
@@ -60,5 +60,5 @@ public final class RaceController {
             ctx.status(INTERNAL_ERROR);
             ctx.result("{}");
         }
-    }
+    };
 }
