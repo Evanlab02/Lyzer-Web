@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import lyzer.web.tech.config.LocalConfig;
 import lyzer.web.tech.controllers.DriverController;
+import lyzer.web.tech.controllers.PatchNotesController;
 import lyzer.web.tech.controllers.ResultController;
 import lyzer.web.tech.controllers.SeasonController;
 import lyzer.web.tech.controllers.TeamController;
@@ -91,5 +92,7 @@ public final class Server implements Runnable {
 
         app.get("/constructors", TeamController::getAllResults);
         app.get("/constructors/{year}/{team}", TeamController::getTeamResults);
+
+        app.get("/patchnotes", PatchNotesController::getPatchNotes);
     }
 }

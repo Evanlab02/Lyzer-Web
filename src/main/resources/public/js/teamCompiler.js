@@ -71,7 +71,7 @@ export async function viewTeamResults(year, team) {
             return data;
         });
     team = team.replaceAll("_", " ");
-    if (team === "all") {
+    if (team === "All") {
         resultData.mainHeader = `Constructor Standings`;
     } else {
         resultData.mainHeader = `${team} Results for ${year}`;

@@ -1,0 +1,10 @@
+[
+    {
+        "version": "Lyzer-Web 1.0.0",
+        "notes": [
+            "Initial release of the site with patch notes.",
+            "Fixed a bug where Constructor Standings header would display incorrectly.",
+            "Added patch notes tab to site."
+        ]
+    }
+]
