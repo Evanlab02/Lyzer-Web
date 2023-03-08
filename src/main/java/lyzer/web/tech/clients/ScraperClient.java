@@ -24,10 +24,9 @@ public final class ScraperClient extends Client {
     /**
      * Constructor.
      *
-     * @param config Local configuration.
      */
     public ScraperClient() {
-        destinationUrl = Manage.SCRAPER_IP;
+        destinationUrl = Manage.getScraperIp();
     }
 
     /**
@@ -41,11 +40,12 @@ public final class ScraperClient extends Client {
             HttpRequest request = createGetRequest(uri);
             HttpResponse<String> resp = sendRequest(request);
             ObjectMapper objMapper = new ObjectMapper();
-            return objMapper.readValue(resp.body(), ScraperVersionResponse.class);
+            return objMapper.readValue(resp.body(),
+            ScraperVersionResponse.class);
         } catch (Exception e) {
             return new ScraperVersionResponse();
         }
-        
+
     }
 
     /**

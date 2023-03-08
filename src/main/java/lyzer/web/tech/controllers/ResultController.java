@@ -26,8 +26,8 @@ public final class ResultController {
         String dataType = ctx.pathParam("dataType");
         ScraperClient client = new ScraperClient();
         ScraperDataResponse response = client.getData(dataType);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }
@@ -45,8 +45,8 @@ public final class ResultController {
         ScraperClient client = new ScraperClient();
         String url = dataType + "/" + year + "/" + location;
         ScraperDataResponse response = client.getData(url);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }

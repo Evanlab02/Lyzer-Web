@@ -22,8 +22,8 @@ public final class TeamController {
     public static void getAllResults(final Context ctx) {
         ScraperClient client = new ScraperClient();
         ScraperDataResponse response = client.getData("constructors");
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     };
@@ -39,8 +39,8 @@ public final class TeamController {
         String team = ctx.pathParam("team");
         String url = "constructors/" + year + "/" + team;
         ScraperDataResponse response = client.getData(url);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     };

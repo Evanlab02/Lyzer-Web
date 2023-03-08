@@ -5,7 +5,7 @@ import java.io.IOException;
 import io.javalin.http.Context;
 import lyzer.web.tech.reader.JsonReader;
 
-public class PatchNotesController {
+public final class PatchNotesController {
     private PatchNotesController() {
     }
 
@@ -14,7 +14,12 @@ public class PatchNotesController {
      */
     private static final int INTERNAL_ERROR = 500;
 
-    public static void getPatchNotes(Context ctx) {
+    /**
+     * Get the patch notes.
+     *
+     * @param ctx
+     */
+    public static void getPatchNotes(final Context ctx) {
         try {
             JsonReader jsonReader = new JsonReader("patch_notes.json");
             String content = jsonReader.readFile();

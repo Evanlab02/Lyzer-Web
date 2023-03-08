@@ -22,8 +22,8 @@ public final class DriverController {
     public static void getAllResults(final Context ctx) {
         ScraperClient client = new ScraperClient();
         ScraperDataResponse response = client.getData("drivers");
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     };
@@ -41,8 +41,8 @@ public final class DriverController {
         String driverKey = driverSurname + ",_" + driverName;
         String url = "drivers/" + year + "/" + driverKey;
         ScraperDataResponse response = client.getData(url);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }
@@ -58,8 +58,8 @@ public final class DriverController {
         String year = ctx.pathParam("year");
         String url = "drivers/" + year + "/All";
         ScraperDataResponse response = client.getData(url);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }

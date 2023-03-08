@@ -12,12 +12,24 @@ import java.io.IOException;
  */
 public final class Manage {
 
-    public static String SCRAPER_IP;
+    /**
+     * Scraper ip.
+     */
+    private static String scraperIp;
 
     /**
      * Hidden constructor.
      */
     private Manage() {
+    }
+
+    /**
+     * Get the scraper ip.
+     *
+     * @return The scraper ip.
+     */
+    public static String getScraperIp() {
+        return scraperIp;
     }
 
     /**
@@ -30,7 +42,7 @@ public final class Manage {
 
         LocalConfig localConfig = readLocalConfig();
         logger.log("Local config loaded.");
-        SCRAPER_IP = localConfig.getScraperIp();
+        scraperIp = localConfig.getScraperIp();
 
         if (args.length > 0) {
             int port = Integer.parseInt(args[0]);

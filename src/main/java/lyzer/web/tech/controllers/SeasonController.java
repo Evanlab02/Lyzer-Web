@@ -25,8 +25,8 @@ public final class SeasonController {
     public static void getSeasons(final Context ctx) {
         ScraperClient client = new ScraperClient();
         ScraperDataResponse response = client.getData("seasons");
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }
@@ -40,8 +40,8 @@ public final class SeasonController {
         String season = ctx.pathParam("season");
         ScraperClient client = new ScraperClient();
         ScraperDataResponse response = client.getData("seasons/" + season);
-        Gson gson = new Gson(); 
-        String result = gson.toJson(response.getData()); 
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }

@@ -28,11 +28,8 @@ public final class VersionController {
      * Get the version of the Scraper API.
      *
      * @param ctx The context of the request.
-     * @param config the config of the server.
      */
-    public static void getScraperVersion(
-        final Context ctx
-        ) {
+    public static void getScraperVersion(final Context ctx) {
         ScraperClient client = new ScraperClient();
         ScraperVersionResponse response = client.getVersion();
         ctx.contentType("application/json");
