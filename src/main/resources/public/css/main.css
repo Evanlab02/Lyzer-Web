@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.border-div {
+  border: 1px solid black;
+}
+
 body {
     box-sizing: border-box;
     margin: 1em;
@@ -136,10 +140,4 @@ div.error {
 div.stacktrace {
     font-size: small;
     font-family: monospace;
-}
-
-#versions {
-    font-size: small;
-    font-family: monospace;
-    position: fixed; bottom: 0; right: 0;
 }

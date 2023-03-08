@@ -1,5 +1,6 @@
 clean:
 	mvn clean
+	rm -rf dependency-reduced-pom.xml
 
 pipeline:
 	mvn clean
@@ -14,10 +15,13 @@ lint:
 	mvn checkstyle:check
 
 build:
-	mvn compile
+	mvn compile package
 
 run: build
-	mvn exec:java
+	java -jar target/Lyzer-Web-1.0.0.jar
 
 run-local: build
+	java -jar target/Lyzer-Web-1.0.0.jar 7000
+
+run-dev: build
 	mvn exec:java -Dexec.args="7000"

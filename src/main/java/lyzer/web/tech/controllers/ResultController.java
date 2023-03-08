@@ -1,9 +1,10 @@
 package lyzer.web.tech.controllers;
 
-import java.io.IOException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+
 import io.javalin.http.Context;
-import lyzer.web.tech.reader.JsonReader;
+import lyzer.web.tech.clients.ScraperClient;
+import lyzer.web.tech.responses.ScraperDataResponse;
 
 /**
  * ResultController.
@@ -17,26 +18,18 @@ public final class ResultController {
     }
 
     /**
-     * Internal error code.
-     */
-    private static final int INTERNAL_ERROR = 500;
-
-    /**
      * Gets all the results for the data type.
      *
      * @param ctx The context of the request.
      */
     public static void getAllResults(final Context ctx) {
-        try {
-            String dataType = ctx.pathParam("dataType");
-            JsonReader reader = new JsonReader(dataType + ".json");
-            String fileContent = reader.readFile();
-            ctx.contentType("application/json");
-            ctx.result(fileContent);
-        } catch (IOException exception) {
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        String dataType = ctx.pathParam("dataType");
+        ScraperClient client = new ScraperClient();
+        ScraperDataResponse response = client.getData(dataType);
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
+        ctx.contentType("application/json");
+        ctx.result(result);
     }
 
     /**
@@ -45,22 +38,16 @@ public final class ResultController {
      * @param ctx The context of the request.
      */
     public static void getSingleResult(final Context ctx) {
-        try {
-            String dataType = ctx.pathParam("dataType");
-            JsonReader reader = new JsonReader(dataType + ".json");
-            String fileContent = reader.readFile();
-            JSONObject json = new JSONObject(fileContent);
-            String year = ctx.pathParam("year");
-            String location = ctx.pathParam("location");
-            location = location.replace("_", " ");
-            JSONObject result = json.getJSONObject(year);
-            JSONObject finalResult = result.getJSONObject(location);
-            ctx.contentType("application/json");
-            ctx.result(finalResult.toString());
-        } catch (IOException exception) {
-            exception.printStackTrace();
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        String dataType = ctx.pathParam("dataType");
+        String year = ctx.pathParam("year");
+        String location = ctx.pathParam("location");
+        location = location.replace("_", " ");
+        ScraperClient client = new ScraperClient();
+        String url = dataType + "/" + year + "/" + location;
+        ScraperDataResponse response = client.getData(url);
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
+        ctx.contentType("application/json");
+        ctx.result(result);
     }
 }

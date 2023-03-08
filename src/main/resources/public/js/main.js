@@ -56,6 +56,7 @@ window.addEventListener('load', () => {
     const resultsFormTemplate = Handlebars.compile($("#results-form-template").html());
     const driverFormTemplate = Handlebars.compile($("#driver-form-template").html());
     const teamFormTemplate = Handlebars.compile($("#team-form-template").html());
+    const patchNotesTemplate = Handlebars.compile($("#patch-notes").html());
 
     const router = new Router({
         mode:'hash',
@@ -121,6 +122,24 @@ window.addEventListener('load', () => {
         viewTeamResults(year, team);
     });
 
+    router.add("/patch-notes", async () => {
+        let html = patchNotesTemplate();
+        app.html(html);
+        const patchNotes = await fetch('/patchnotes', {method:'GET'})
+            .then(response => response.json())
+            .then(data => {
+                return data;
+            });
+        const data = {
+            patchNotes: patchNotes
+        }
+        const template = document.getElementById('patch-notes').innerText;
+        const compiledFunction = Handlebars.compile(template);
+        document.getElementById('app').innerHTML = compiledFunction(data);
+        updateVersion("web", "/version")
+        updateVersion("scraper", "/version/scraper")
+    });
+
     router.addUriListener();
 
     $('a').on('click', (event) => {
@@ -132,7 +151,4 @@ window.addEventListener('load', () => {
     
     router.navigateTo('/results/summaries');
     displayDefaultTemplate(router);
-
-    updateVersion("web", "/version")
-    updateVersion("scraper", "/version/scraper")
 });
