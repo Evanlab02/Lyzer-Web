@@ -1,10 +1,10 @@
 package lyzer.web.tech.controllers;
 
-import java.io.IOException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import io.javalin.http.Context;
-import lyzer.web.tech.reader.JsonReader;
+import lyzer.web.tech.clients.ScraperClient;
+import lyzer.web.tech.responses.ScraperDataResponse;
 
 
 /**
@@ -18,25 +18,17 @@ public final class SeasonController {
     }
 
     /**
-     * The internal error code.
-     */
-    private static final int INTERNAL_ERROR = 500;
-
-    /**
      * Get all the seasons.
      *
      * @param ctx The context of the request.
      */
     public static void getSeasons(final Context ctx) {
-        try {
-            JsonReader jsonReader = new JsonReader("seasons.json");
-            String fileContent = jsonReader.readFile();
-            ctx.contentType("application/json");
-            ctx.result(fileContent);
-        } catch (IOException exception) {
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        ScraperClient client = new ScraperClient();
+        ScraperDataResponse response = client.getData("seasons");
+        Gson gson = new Gson(); 
+        String result = gson.toJson(response.getData()); 
+        ctx.contentType("application/json");
+        ctx.result(result);
     }
 
     /**
@@ -45,20 +37,12 @@ public final class SeasonController {
      * @param ctx The context of the request.
      */
     public static void getSeason(final Context ctx) {
-        try {
-            JsonReader jsonReader = new JsonReader("seasons.json");
-            String fileContent = jsonReader.readFile();
-            JSONObject json = new JSONObject(fileContent);
-            String season = ctx.pathParam("season");
-            if (json.has(season)) {
-                ctx.contentType("application/json");
-                ctx.result(json.get(season).toString());
-            } else {
-                throw new IOException("Season not found");
-            }
-        } catch (IOException exception) {
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        String season = ctx.pathParam("season");
+        ScraperClient client = new ScraperClient();
+        ScraperDataResponse response = client.getData("seasons/" + season);
+        Gson gson = new Gson(); 
+        String result = gson.toJson(response.getData()); 
+        ctx.contentType("application/json");
+        ctx.result(result);
     }
 }

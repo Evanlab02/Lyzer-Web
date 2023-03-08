@@ -1,11 +1,9 @@
 package lyzer.web.tech.controllers;
 
-import java.io.IOException;
-
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
 import io.javalin.http.Context;
-import lyzer.web.tech.reader.JsonReader;
+import lyzer.web.tech.clients.ScraperClient;
+import lyzer.web.tech.responses.ScraperDataResponse;
 
 public final class TeamController {
 
@@ -15,11 +13,6 @@ public final class TeamController {
     private TeamController() {
     }
 
-    /**
-     * Internal error code.
-     */
-    private static final int INTERNAL_ERROR = 500;
-
 
     /**
      * Gets all the results for the teams.
@@ -27,15 +20,12 @@ public final class TeamController {
      * @param ctx
      */
     public static void getAllResults(final Context ctx) {
-        try {
-            JsonReader reader = new JsonReader("constructors.json");
-            String fileContent = reader.readFile();
-            ctx.contentType("application/json");
-            ctx.result(fileContent);
-        } catch (IOException exception) {
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        ScraperClient client = new ScraperClient();
+        ScraperDataResponse response = client.getData("constructors");
+        Gson gson = new Gson(); 
+        String result = gson.toJson(response.getData()); 
+        ctx.contentType("application/json");
+        ctx.result(result);
     };
 
     /**
@@ -44,21 +34,14 @@ public final class TeamController {
      * @param ctx
      */
     public static void getTeamResults(final Context ctx) {
-        try {
-            JsonReader reader = new JsonReader("constructors.json");
-            String fileContent = reader.readFile();
-            JSONObject json = new JSONObject(fileContent);
-            String year = ctx.pathParam("year");
-            JSONObject result = json.getJSONObject(year);
-            String team = ctx.pathParam("team");
-            team = team.replaceAll("_", " ");
-            JSONObject finalResult = result.getJSONObject(team);
-            ctx.contentType("application/json");
-            ctx.result(finalResult.toString());
-        } catch (IOException exception) {
-            exception.printStackTrace();
-            ctx.status(INTERNAL_ERROR);
-            ctx.result("{}");
-        }
+        ScraperClient client = new ScraperClient();
+        String year = ctx.pathParam("year");
+        String team = ctx.pathParam("team");
+        String url = "constructors/" + year + "/" + team;
+        ScraperDataResponse response = client.getData(url);
+        Gson gson = new Gson(); 
+        String result = gson.toJson(response.getData()); 
+        ctx.contentType("application/json");
+        ctx.result(result);
     };
 }

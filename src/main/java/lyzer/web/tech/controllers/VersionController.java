@@ -1,7 +1,8 @@
 package lyzer.web.tech.controllers;
 
 import io.javalin.http.Context;
-import lyzer.web.tech.config.LocalConfig;
+import lyzer.web.tech.clients.ScraperClient;
+import lyzer.web.tech.responses.ScraperVersionResponse;
 
 /**
  * VersionController.
@@ -30,10 +31,11 @@ public final class VersionController {
      * @param config the config of the server.
      */
     public static void getScraperVersion(
-        final Context ctx, final LocalConfig config
+        final Context ctx
         ) {
-        String version = config.getScraperVersion();
+        ScraperClient client = new ScraperClient();
+        ScraperVersionResponse response = client.getVersion();
         ctx.contentType("application/json");
-        ctx.result("{\"version\": \"" + version + "\"}");
+        ctx.result("{\"version\": \"" + response.getData() + "\"}");
     }
 }

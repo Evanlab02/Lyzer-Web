@@ -2,7 +2,6 @@ package lyzer.web.tech.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lyzer.web.tech.logs.ConsoleLogger;
 
 
 /**
@@ -21,13 +20,6 @@ public final class LocalConfig {
     private String scraperIp;
 
     /**
-     * The version of the scraper application.
-     *
-     * @since 0.1.0
-     */
-    private String scraperVersion;
-
-    /**
      * This method returns the IP address of the scraper application.
      *
      * @return IP address of the scraper application.
@@ -35,16 +27,6 @@ public final class LocalConfig {
      */
     public String getScraperIp() {
         return scraperIp;
-    }
-
-    /**
-     * This method returns the version of the scraper application.
-     *
-     * @return version of the scraper application.
-     * @since 0.1.0
-     */
-    public String getScraperVersion() {
-        return scraperVersion;
     }
 
     /**
@@ -58,16 +40,6 @@ public final class LocalConfig {
     }
 
     /**
-     * This method sets the version of the scraper application.
-     *
-     * @param version version of the scraper application.
-     * @since 0.1.0
-     */
-    public void setScraperVersion(final String version) {
-        this.scraperVersion = version;
-    }
-
-    /**
      * This method converts a JSON object to a LocalConfig object.
      *
      * @param jsonString JSON string to be converted.
@@ -77,8 +49,6 @@ public final class LocalConfig {
     public static LocalConfig converJSONToLocalConfig(
             final String jsonString
     ) throws JsonProcessingException {
-        ConsoleLogger logger = new ConsoleLogger();
-        logger.log("Converting File to Object...");
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(jsonString, LocalConfig.class);
     }
@@ -87,7 +57,6 @@ public final class LocalConfig {
     public String toString() {
         return "{"
                 + "scraperIp='" + scraperIp + '\''
-                + ", scraperVersion='" + scraperVersion + '\''
                 + '}';
     }
 }

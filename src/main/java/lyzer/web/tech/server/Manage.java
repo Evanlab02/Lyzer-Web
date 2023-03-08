@@ -1,7 +1,6 @@
 package lyzer.web.tech.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lyzer.web.tech.clients.ScraperClient;
 import lyzer.web.tech.config.LocalConfig;
 import lyzer.web.tech.logs.ConsoleLogger;
 import lyzer.web.tech.reader.JsonReader;
@@ -12,6 +11,8 @@ import java.io.IOException;
  * Main class.
  */
 public final class Manage {
+
+    public static String SCRAPER_IP;
 
     /**
      * Hidden constructor.
@@ -29,18 +30,15 @@ public final class Manage {
 
         LocalConfig localConfig = readLocalConfig();
         logger.log("Local config loaded.");
-
-        ScraperClient scraperClient = new ScraperClient(localConfig);
-        Thread updateScraperThread = new Thread(scraperClient);
-        updateScraperThread.start();
+        SCRAPER_IP = localConfig.getScraperIp();
 
         if (args.length > 0) {
             int port = Integer.parseInt(args[0]);
-            Server server = new Server(localConfig, port);
+            Server server = new Server(port);
             Thread serverThread = new Thread(server);
             serverThread.start();
         } else {
-            Server server = new Server(localConfig);
+            Server server = new Server();
             Thread serverThread = new Thread(server);
             serverThread.start();
         }

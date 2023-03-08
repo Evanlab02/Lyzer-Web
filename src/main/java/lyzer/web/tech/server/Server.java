@@ -2,7 +2,6 @@ package lyzer.web.tech.server;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-import lyzer.web.tech.config.LocalConfig;
 import lyzer.web.tech.controllers.DriverController;
 import lyzer.web.tech.controllers.PatchNotesController;
 import lyzer.web.tech.controllers.ResultController;
@@ -35,27 +34,17 @@ public final class Server implements Runnable {
     private static final String HTML_PATH = "public/";
 
     /**
-     * The local config.
-     */
-    private final LocalConfig localConfig;
-
-    /**
      * This method is the constructor for the server.
-     *
-     * @param config The local config.
      */
-    public Server(final LocalConfig config) {
-        this.localConfig = config;
+    public Server() {
     }
 
     /**
      * This method is the constructor for the server.
      *
-     * @param config The local config.
      * @param serverPort The port to run the server on.
      */
-    public Server(final LocalConfig config, final int serverPort) {
-        this.localConfig = config;
+    public Server(final int serverPort) {
         this.port = serverPort;
     }
 
@@ -75,8 +64,7 @@ public final class Server implements Runnable {
         app.start(port);
 
         app.get("/version", VersionController::getVersion);
-        app.get("/version/scraper", ctx ->
-        VersionController.getScraperVersion(ctx, localConfig));
+        app.get("/version/scraper", VersionController::getScraperVersion);
 
         app.get("/seasons", SeasonController::getSeasons);
         app.get("seasons/{season}", SeasonController::getSeason);

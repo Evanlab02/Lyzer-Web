@@ -10,7 +10,7 @@ import java.time.Duration;
 /**
  * Abstract class for creating HTTP clients.
  */
-public abstract class Client implements Runnable {
+public abstract class Client {
 
     /**
      * The time it takes to time out any request
