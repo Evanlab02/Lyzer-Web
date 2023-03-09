@@ -76,9 +76,6 @@ public final class ScraperClient extends Client {
             URI uri = URI.create(destinationUrl + "/data/" + params);
             HttpRequest request = createGetRequest(uri);
             HttpResponse<String> resp = sendRequest(request);
-            if (resp.statusCode() != 200) {
-                System.out.println(resp.body());
-            }
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperDataResponse.class);
         } catch (Exception e) {
