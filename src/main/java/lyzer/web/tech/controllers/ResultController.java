@@ -41,7 +41,6 @@ public final class ResultController {
         String dataType = ctx.pathParam("dataType");
         String year = ctx.pathParam("year");
         String location = ctx.pathParam("location");
-        location = location.replace("_", " ");
         ScraperClient client = new ScraperClient();
         String url = dataType + "/" + year + "/" + location;
         ScraperDataResponse response = client.getData(url);

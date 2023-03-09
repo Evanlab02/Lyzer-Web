@@ -79,6 +79,7 @@ public final class ScraperClient extends Client {
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperDataResponse.class);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ScraperDataResponse();
         }
     }
