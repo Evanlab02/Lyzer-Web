@@ -79,7 +79,6 @@ export async function viewResults(dataType, year, location) {
     let updatedRows = []
     for (let rowIndex in resultData.rows) {
         let rowValue = resultData.rows[rowIndex];
-        console.log(rowValue);
         const lastValue = rowValue.pop();
         while (rowValue.length < resultData.headers.length - 1) {
             rowValue.push("");
@@ -91,7 +90,7 @@ export async function viewResults(dataType, year, location) {
 
     let header = dataType.charAt(0).toUpperCase() + dataType.slice(1);
     header = header.replaceAll("_", " ");
-    resultData.mainHeader = `${header} result for ${year} ${location}`;
+    resultData.mainHeader = `${header} result for ${year} ${location.replaceAll("_", " ")}`;
 
     document.getElementById('app').innerHTML = compiledFunction(resultData);
 }
