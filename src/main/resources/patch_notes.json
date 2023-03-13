@@ -1,5 +1,11 @@
 [
     {
+        "version": "Lyzer-Scraper 1.1.0",
+        "notes": [
+            "Improved scraper efficiency."
+        ]
+    },
+    {
         "version": "Lyzer-Scraper 1.0.0",
         "notes":[
             "Added all data for 1950-2020 to data files. Users can now browse and view this data."
