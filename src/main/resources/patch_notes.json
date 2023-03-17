@@ -1,4 +1,32 @@
-[
+[   
+    {
+        "version": "Lyzer-Scraper 1.2.2",
+        "notes": [
+            "Added argument for notification manager.",
+            "Updated pipeline"
+        ]
+    },
+    {
+        "version": "Lyzer-Scraper 1.2.1",
+        "notes": [
+            "Secrets are now better protected"
+        ]
+    },
+    {
+        "version": "Lyzer-Scraper 1.2.0",
+        "notes": [
+            "Created Reporting and Requesting Endpoints.",
+            "Maintainers will now receive a notification when Lyzer Web goes down."
+        ]
+    },
+    {
+        "version": "Lyzer-Scraper 1.1.1",
+        "notes": [
+            "Install Scripts and multi distro release support.",
+            "Removed constructor data for year 1950->1957 - No constructors championships for these years.",
+            "Added more qualifying results."
+        ]
+    },
     {
         "version": "Lyzer-Scraper 1.1.0",
         "notes": [
