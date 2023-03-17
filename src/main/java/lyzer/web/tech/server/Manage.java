@@ -13,6 +13,11 @@ import java.io.IOException;
 public final class Manage {
 
     /**
+     * Notification service ip.
+     */
+    private static String ntfyIp;
+
+    /**
      * Scraper ip.
      */
     private static String scraperIp;
@@ -21,6 +26,15 @@ public final class Manage {
      * Hidden constructor.
      */
     private Manage() {
+    }
+
+    /**
+     * Get the notification service ip.
+     *
+     * @return The notification service ip.
+     */
+    public static String getNtfyIp() {
+        return ntfyIp;
     }
 
     /**
@@ -43,6 +57,7 @@ public final class Manage {
         LocalConfig localConfig = readLocalConfig();
         logger.log("Local config loaded.");
         scraperIp = localConfig.getScraperIp();
+        ntfyIp = localConfig.getNtfyIp();
 
         if (args.length > 0) {
             int port = Integer.parseInt(args[0]);
@@ -54,8 +69,6 @@ public final class Manage {
             Thread serverThread = new Thread(server);
             serverThread.start();
         }
-
-
     }
 
     /**

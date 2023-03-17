@@ -43,6 +43,8 @@ public final class ScraperClient extends Client {
             return objMapper.readValue(resp.body(),
             ScraperVersionResponse.class);
         } catch (Exception e) {
+            NtfyClient ntfyClient = new NtfyClient();
+            ntfyClient.sendEmergency();
             return new ScraperVersionResponse();
         }
 
@@ -61,6 +63,8 @@ public final class ScraperClient extends Client {
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperQueueResponse.class);
         } catch (Exception e) {
+            NtfyClient ntfyClient = new NtfyClient();
+            ntfyClient.sendEmergency();
             return new ScraperQueueResponse();
         }
     }
@@ -79,7 +83,8 @@ public final class ScraperClient extends Client {
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperDataResponse.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            NtfyClient ntfyClient = new NtfyClient();
+            ntfyClient.sendEmergency();
             return new ScraperDataResponse();
         }
     }
