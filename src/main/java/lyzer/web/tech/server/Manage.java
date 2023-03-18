@@ -75,6 +75,7 @@ public final class Manage {
         NtfyClient ntfyClient = new NtfyClient();
         Thread ntfyClientThread = new Thread(ntfyClient);
         ntfyClientThread.start();
+
     }
 
     /**
