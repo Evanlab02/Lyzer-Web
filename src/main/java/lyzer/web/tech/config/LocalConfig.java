@@ -20,6 +20,23 @@ public final class LocalConfig {
     private String scraperIp;
 
     /**
+     * The IP address of the notification application.
+     *
+     * @since 0.1.0
+     */
+    private String ntfyIp;
+
+    /**
+     * This method returns the IP address of the notification application.
+     *
+     * @return IP address of the notification application.
+     * @since 1.1.0
+     */
+    public String getNtfyIp() {
+        return ntfyIp;
+    }
+
+    /**
      * This method returns the IP address of the scraper application.
      *
      * @return IP address of the scraper application.
@@ -27,6 +44,16 @@ public final class LocalConfig {
      */
     public String getScraperIp() {
         return scraperIp;
+    }
+
+    /**
+     * This method sets the IP address of the notification application.
+     *
+     * @param ntfyHost IP address of the notification application.
+     * @since 1.1.0
+     */
+    public void setNtfyIp(final String ntfyHost) {
+        this.ntfyIp = ntfyHost;
     }
 
     /**

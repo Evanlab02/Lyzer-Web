@@ -13,169 +13,75 @@
 
 <body>
     <nav class="center">
-        <a id="results" href="#/results/summaries">Results</a>
-        <a id="drivers" href="#/drivers">Drivers</a>
-        <a id="teams" href="#/constructors">Teams</a>
-        <a id="patches" href="#/patch-notes">Patches</a>
+        <a id="results-page-link" href="#/results">Results</a>
+        <a id="insights-page-link" href="#/insights">Insights</a>
+        <a id="patches-page-link" href="#/patch-notes">Patches</a>
+        <a id="feedback-page-link" href="#/feedback">Feedback</a>
+        <a id="mode-toggle" class="fa-solid fa-circle-half-stroke"></a>
     </nav>
 
-    <div id="dynamic-nav"></div>
-    
     <div class="center">
         <h1>Formula-Lyzer</h1>
     </div>
 
-    <div id="app"></div>
+    <div id="app">
+    </div>
 
-    <script id="error-template" type="text/handlebars-template">
+    <script id="page-not-found-template" type="text/handlebars-template">
         <h1>Page not found</h1>
     </script>
 
-    <script id="default-template" type="text/handlebars-template">
+    <script id="search-results-template" type="text/handlebars-template">
         <div class="center">
-            <h2>Search - Season Results</h2>
+            <h2>Search - Results</h2>
         </div>
         <div class="center">
-            <form id="seasons-form">
-                <label for="seasons-dd">Year</label>
-                <select name="seasons-dd" id="seasons-dd">
-                    {{#each seasons}}
-                    <option>{{this}}</option>
-                    {{/each}}
-                </select>
-                <div id="submit-button">
-                <input type="submit" name="submit" value="Find Results">
-                </div>
-            </form>
-        </div>
-    </script>
-
-    <script id="results-form-template" type="text/handlebars-template">
-        <div class="center">
-            <h2>{{mainHeader}}</h2>
-        </div>
-        <div class="center">
-            <form id="results-form">
+            <form id="search-results-form" class={{this.formClassName}}>
+            <div id="year-selection-div">
                 <label for="year-dd">Year</label>
                 <select name="year-dd" id="year-dd">
                     {{#each years}}
                     <option>{{this}}</option>
                     {{/each}}
                 </select>
+            </div>
+            <div id="category-selection-div">
+                <label for="category-dd">Category</label>
+                <select id="category-dd" name="category-dd">
+                    {{#each categories}}
+                    <option value={{this.value}}>{{this.text}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div id="location-selection-div">
                 <label for="location-dd">Location</label>
-                <div id="location-div">
-                    <select name="location-dd" id="location-dd">
-                        {{#each locations}}
-                        <option>{{this}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div id="submit-button">
-                    <input type="submit" name="submit" value="Find Results">
-                </div>
-            </form>
-        </div>
-    </script>
-
-    <script id="driver-form-template" type="text/handlebars-template">
-        <div class="center">
-            <h2>Search - Drivers Results</h2>
-        </div>
-        <div class="center">
-            <form id="drivers-form">
-                <label for="year-dd">Year</label>
-                <select name="year-dd" id="year-dd">
-                    {{#each years}}
+                <select id="location-dd" name="location-dd">
+                    {{#each locations}}
                     <option>{{this}}</option>
                     {{/each}}
                 </select>
-                <label for="driver-dd">Driver</label>
-                <div id="driver-div">
-                    <select name="driver-dd" id="driver-dd">
-                        {{#each drivers}}
-                        <option>{{this}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div id="submit-button">
-                    <input type="submit" name="submit" value="Find Driver Results">
-                </div>
+            </div>
+            <input type="submit" name="submit" value="Find Results">
             </form>
         </div>
     </script>
 
-    <script id="team-form-template" type="text/handlebars-template">
-        <div class="center">
-            <h2>Search - Team Results</h2>
-        </div>
-        <div class="center">
-            <form id="teams-form">
-                <label for="year-dd">Year</label>
-                <select name="year-dd" id="year-dd">
-                    {{#each years}}
-                    <option>{{this}}</option>
-                    {{/each}}
-                </select>
-                <label for="team-dd">Team</label>
-                <div id="team-div">
-                    <select name="team-dd" id="team-dd">
-                        {{#each teams}}
-                        <option>{{this}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div id="submit-button">
-                    <input type="submit" name="submit" value="Find Team Results">
-                </div>
-            </form>
-        </div>
+    <script id="category-dropdown-template" type="text/handlebars-template">
+        <label for="category-dd">Category</label>
+        <select id="category-dd" name="category-dd">
+            {{#each categories}}
+            <option value={{this.value}}>{{this.text}}</option>
+            {{/each}}
+        </select>
     </script>
 
-    <script id="populate-location-dropdown" type="text/handlebars-template">
-        <select name="location-dd" id="location-dd">
+    <script id="location-dropdown-template" type="text/handlebars-template">
+        <label for="location-dd">{{this.inputLabel}}</label>
+        <select id="location-dd" name="location-dd">
             {{#each locations}}
             <option>{{this}}</option>
             {{/each}}
         </select>
-    </script>
-
-    <script id="populate-driver-dropdown" type="text/handlebars-template">
-        <select name="driver-dd" id="driver-dd">
-            {{#each drivers}}
-            <option>{{this}}</option>
-            {{/each}}
-        </select>
-    </script>
-
-    <script id="populate-team-dropdown" type="text/handlebars-template">
-        <select name="team-dd" id="team-dd">
-            {{#each teams}}
-            <option>{{this}}</option>
-            {{/each}}
-        </select>
-    </script>
-
-    <script id="default-nav" type="text/handlebars-template">
-        <nav class="center">
-            <a id="races" href="#/results/races">Races</a>
-            <a id="fastest_laps" href="#/results/fastest_laps">Fastest Laps</a>
-            <a id="pit_stops" href="#/results/pitstops">Pit Stops</a>
-            <a id="starting_grids" href="#/results/starting_grids">Starting Grids</a>
-            <a id="qualifying" href="#/results/qualifying">Qualifying</a>
-            <a id="first_practice" href="#/results/firstPractice">First Practice</a>
-            <a id="second_practice" href="#/results/secondPractice">Second Practice</a>
-            <a id="third_practice" href="#/results/thirdPractice">Third Practice</a>
-            <a id="sprints" href="#/results/sprints">Sprints</a>
-            <a id="sprint_grids" href="#/results/sprint_grids">Sprint Grids</a>
-        </nav>
-    </script>
-
-    <script id="driver-nav" type="text/handlebars-template">
-        <div></div>
-    </script>
-
-    <script id="team-nav" type="text/handlebars-template">
-        <div></div>
     </script>
 
     <script id="default-table-template" type="text/handlebars-template">
@@ -204,10 +110,23 @@
         </div>
     </script>
 
+    <script id="insights-page-template" type="text/handlebars-template">
+        <h2 class="center">Insights</h2>
+        <div class="center" id="insights-page-content">
+            <p>Coming soon...</p>
+        </div>
+    </script>
+
     <script id="patch-notes" type="text/handlebars-template">
         <div class="center">
             <h2>Patch Notes</h2>
         </div>
+
+        <div id="versions" class="border-div">
+            <h3 class="center">Current Versions</h3>
+            <p id="scraper" class="center">Scraper: 0.0.0</p>
+            <p id="web" class="center">App: 0.0.0</p>
+        </div> 
 
         {{#each patchNotes}}
         <div class="border-div">
@@ -222,18 +141,36 @@
             {{/each}}
         </div>
         {{/each}}
+    </script>
 
-        <div id="versions" class="border-div">
-            <h3 class="center">Current Versions</h3>
-            <p id="scraper" class="center">Scraper: 0.0.0</p>
-            <p id="web" class="center">App: 0.0.0</p>
-        </div>  
+    <script id="feedback-template" type="text/handlebars-template">
+        <div class="center">
+            <h2>Feedback</h2>
+        </div>
+        <div class="center">
+            <p>{{this.response}}</p>
+        </div>
+        <div class="center">
+            <form id="feedback-form" class={{this.formClassName}}>
+                <label for="feedback-type">Feedback Type</label>
+                <select id="feedback-type" name="feedback-type">
+                    <option value="incident">Report a problem</option>
+                    <option value="request">Make a suggestion</option>
+                </select>
+                <label for="feedback-text">Feedback</label>
+                <input type="text" id="feedback-text" name="feedback-text">
+                <label for="feedback-email">Email to contact you for any follow-ups</label>
+                <input type="email" id="feedback-email" name="feedback-email">
+                <input type="submit" name="submit" value="Submit">
+            </form>
+        </div>
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-router@1.2.8/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/lyzer.js"></script>
+    <script src="https://kit.fontawesome.com/9bf15e3398.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
