@@ -86,7 +86,8 @@ public final class Server implements Runnable {
 
         app.get("/api/years", ResultController::getAllYears);
         app.get("/api/categories/{year}", ResultController::getCategories);
-        app.get("/api/locations/{year}/{category}", ResultController::getLocations);
+        app.get("/api/locations/{year}/{category}",
+        ResultController::getLocations);
 
         app.post("/incident", ReportController::reportIncident);
         app.post("/request", ReportController::createSuggestion);

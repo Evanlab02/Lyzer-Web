@@ -51,6 +51,11 @@ public final class ResultController {
         ctx.result(result);
     }
 
+    /**
+     * Gets all the years for which data is available.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getAllYears(final Context ctx) {
         ScraperClient client = new ScraperClient();
         ScraperArrayResponse response = client.getDataArray("years");
@@ -60,21 +65,35 @@ public final class ResultController {
         ctx.result(result);
     }
 
+    /**
+     * Gets all the categories for a given year.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getCategories(final Context ctx) {
         String year = ctx.pathParam("year");
         ScraperClient client = new ScraperClient();
-        ScraperArrayResponse response = client.getDataArray("categories/" + year);
+        ScraperArrayResponse response = client.getDataArray(
+            "categories/" + year
+        );
         Gson gson = new Gson();
         String result = gson.toJson(response.getData());
         ctx.contentType("application/json");
         ctx.result(result);
     }
 
+    /**
+     * Gets all the locations for a given year and category.
+     *
+     * @param ctx The context of the request.
+     */
     public static void getLocations(final Context ctx) {
         String year = ctx.pathParam("year");
         String category = ctx.pathParam("category");
         ScraperClient client = new ScraperClient();
-        ScraperArrayResponse response = client.getDataArray("locations/" + year + "/" + category);
+        ScraperArrayResponse response = client.getDataArray(
+            "locations/" + year + "/" + category
+        );
         Gson gson = new Gson();
         String result = gson.toJson(response.getData());
         ctx.contentType("application/json");

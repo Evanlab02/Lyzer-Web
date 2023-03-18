@@ -91,6 +91,12 @@ public final class ScraperClient extends Client {
         }
     }
 
+    /**
+     * Get the requested data from the scraper service.
+     *
+     * @param params The params to send to the scraper service.
+     * @return The response from the scraper service.
+     */
     public ScraperArrayResponse getDataArray(final String params) {
         try {
             URI uri = URI.create(destinationUrl + "/data/" + params);
@@ -104,7 +110,13 @@ public final class ScraperClient extends Client {
         }
     }
 
-    public ScraperResponse sendIncident(String body) {
+    /**
+     * Send a report of an incident to the scraper service.
+     *
+     * @param body The body of the report.
+     * @return The response from the scraper service.
+     */
+    public ScraperResponse sendIncident(final String body) {
         try {
             URI uri = URI.create(destinationUrl + "/incident");
             HttpRequest request = createPostRequest(uri, body);
@@ -117,7 +129,13 @@ public final class ScraperClient extends Client {
         }
     }
 
-    public ScraperResponse sendSuggestion(String body) {
+    /**
+     * Send a suggestion to the scraper service.
+     *
+     * @param body The body of the suggestion.
+     * @return The response from the scraper service.
+     */
+    public ScraperResponse sendSuggestion(final String body) {
         try {
             URI uri = URI.create(destinationUrl + "/request");
             HttpRequest request = createPostRequest(uri, body);
@@ -130,7 +148,16 @@ public final class ScraperClient extends Client {
         }
     }
 
-    private HttpRequest createPostRequest(URI url, String body) {
+    /**
+     * Create a POST request.
+     *
+     * @param url The url to send the request to.
+     * @param body The body of the request.
+     * @return The request.
+     */
+    private HttpRequest createPostRequest(
+        final URI url, final String body
+        ) {
         return HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
