@@ -1,6 +1,8 @@
 package lyzer.web.tech.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import lyzer.web.tech.clients.NtfyClient;
 import lyzer.web.tech.config.LocalConfig;
 import lyzer.web.tech.logs.ConsoleLogger;
 import lyzer.web.tech.reader.JsonReader;
@@ -69,6 +71,10 @@ public final class Manage {
             Thread serverThread = new Thread(server);
             serverThread.start();
         }
+
+        NtfyClient ntfyClient = new NtfyClient();
+        Thread ntfyClientThread = new Thread(ntfyClient);
+        ntfyClientThread.start();
     }
 
     /**

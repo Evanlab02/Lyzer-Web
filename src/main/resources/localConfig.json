@@ -1,4 +1,4 @@
 {
     "scraperIp": "http://localhost:8000",
-    "ntfyIp": ""
+    "ntfyIp": "https://ntfy.sh/lyzer-tech"
 }

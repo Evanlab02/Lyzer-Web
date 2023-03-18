@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import io.javalin.http.Context;
 import lyzer.web.tech.clients.ScraperClient;
+import lyzer.web.tech.responses.ScraperArrayResponse;
 import lyzer.web.tech.responses.ScraperDataResponse;
 
 /**
@@ -44,6 +45,36 @@ public final class ResultController {
         ScraperClient client = new ScraperClient();
         String url = dataType + "/" + year + "/" + location;
         ScraperDataResponse response = client.getData(url);
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
+        ctx.contentType("application/json");
+        ctx.result(result);
+    }
+
+    public static void getAllYears(final Context ctx) {
+        ScraperClient client = new ScraperClient();
+        ScraperArrayResponse response = client.getDataArray("years");
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
+        ctx.contentType("application/json");
+        ctx.result(result);
+    }
+
+    public static void getCategories(final Context ctx) {
+        String year = ctx.pathParam("year");
+        ScraperClient client = new ScraperClient();
+        ScraperArrayResponse response = client.getDataArray("categories/" + year);
+        Gson gson = new Gson();
+        String result = gson.toJson(response.getData());
+        ctx.contentType("application/json");
+        ctx.result(result);
+    }
+
+    public static void getLocations(final Context ctx) {
+        String year = ctx.pathParam("year");
+        String category = ctx.pathParam("category");
+        ScraperClient client = new ScraperClient();
+        ScraperArrayResponse response = client.getDataArray("locations/" + year + "/" + category);
         Gson gson = new Gson();
         String result = gson.toJson(response.getData());
         ctx.contentType("application/json");

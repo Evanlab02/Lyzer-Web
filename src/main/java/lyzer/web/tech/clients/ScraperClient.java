@@ -1,8 +1,11 @@
 package lyzer.web.tech.clients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lyzer.web.tech.responses.ScraperArrayResponse;
 import lyzer.web.tech.responses.ScraperDataResponse;
 import lyzer.web.tech.responses.ScraperQueueResponse;
+import lyzer.web.tech.responses.ScraperResponse;
 import lyzer.web.tech.responses.ScraperVersionResponse;
 import lyzer.web.tech.server.Manage;
 
@@ -43,8 +46,6 @@ public final class ScraperClient extends Client {
             return objMapper.readValue(resp.body(),
             ScraperVersionResponse.class);
         } catch (Exception e) {
-            NtfyClient ntfyClient = new NtfyClient();
-            ntfyClient.sendEmergency();
             return new ScraperVersionResponse();
         }
 
@@ -63,8 +64,7 @@ public final class ScraperClient extends Client {
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperQueueResponse.class);
         } catch (Exception e) {
-            NtfyClient ntfyClient = new NtfyClient();
-            ntfyClient.sendEmergency();
+            e.printStackTrace();
             return new ScraperQueueResponse();
         }
     }
@@ -83,9 +83,55 @@ public final class ScraperClient extends Client {
             ObjectMapper objMapper = new ObjectMapper();
             return objMapper.readValue(resp.body(), ScraperDataResponse.class);
         } catch (Exception e) {
-            NtfyClient ntfyClient = new NtfyClient();
-            ntfyClient.sendEmergency();
+            e.printStackTrace();
             return new ScraperDataResponse();
         }
+    }
+
+    public ScraperArrayResponse getDataArray(final String params) {
+        try {
+            URI uri = URI.create(destinationUrl + "/data/" + params);
+            HttpRequest request = createGetRequest(uri);
+            HttpResponse<String> resp = sendRequest(request);
+            ObjectMapper objMapper = new ObjectMapper();
+            return objMapper.readValue(resp.body(), ScraperArrayResponse.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ScraperArrayResponse();
+        }
+    }
+
+    public ScraperResponse sendIncident(String body) {
+        try {
+            URI uri = URI.create(destinationUrl + "/incident");
+            HttpRequest request = createPostRequest(uri, body);
+            HttpResponse<String> resp = sendRequest(request);
+            ObjectMapper objMapper = new ObjectMapper();
+            return objMapper.readValue(resp.body(), ScraperResponse.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ScraperArrayResponse();
+        }
+    }
+
+    public ScraperResponse sendSuggestion(String body) {
+        try {
+            URI uri = URI.create(destinationUrl + "/request");
+            HttpRequest request = createPostRequest(uri, body);
+            HttpResponse<String> resp = sendRequest(request);
+            ObjectMapper objMapper = new ObjectMapper();
+            return objMapper.readValue(resp.body(), ScraperResponse.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ScraperArrayResponse();
+        }
+    }
+
+    private HttpRequest createPostRequest(URI url, String body) {
+        return HttpRequest.newBuilder()
+                .uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .header("Content-Type", "application/json")
+                .build();
     }
 }
