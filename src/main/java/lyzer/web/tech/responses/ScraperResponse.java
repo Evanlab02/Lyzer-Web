@@ -1,6 +1,6 @@
 package lyzer.web.tech.responses;
 
-public abstract class ScraperResponse {
+public class ScraperResponse {
     /**
      * Message would be the error message if any,
      * otherwise it would say that data has been

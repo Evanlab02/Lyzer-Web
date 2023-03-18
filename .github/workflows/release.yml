@@ -6,11 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CD with Maven
 
 on:
-  pull_request:
-    branches: [ "release", "dev" ]
+  push:
+    branches: [ "release" ]
 
 jobs:
   build:
@@ -33,3 +33,8 @@ jobs:
       run: mvn checkstyle:check
     - name: Build with Maven
       run: mvn compile package
+    - name: Release Latest Version
+      run: |
+        gh release create v1.1.0 target/Lyzer-Web-1.1.0.jar --draft
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

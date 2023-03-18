@@ -20,11 +20,11 @@ build:
 
 run: build
 	@clear
-	@java -jar target/Lyzer-Web-1.0.1.jar
+	@java -jar target/Lyzer-Web-1.1.0.jar
 
 run-local: build
 	@clear
-	@java -jar target/Lyzer-Web-1.0.1.jar 7000
+	@java -jar target/Lyzer-Web-1.1.0.jar 7000
 
 run-dev: build
 	@clear
