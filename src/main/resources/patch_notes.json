@@ -2,7 +2,8 @@
     {
         "version": "Lyzer-Web 1.1.0",
         "notes": [
-            "Total UI overhaul."
+            "Total UI overhaul.",
+            "Added Down Detector for Lyzer Scraper"
         ]
     },
     {
