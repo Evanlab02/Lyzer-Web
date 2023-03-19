@@ -1,5 +1,18 @@
 [   
     {
+        "version": "Lyzer-Web 1.1.0",
+        "notes": [
+            "Total UI overhaul."
+        ]
+    },
+    {
+        "version": "Lyzer-Scraper 1.3.0",
+        "notes": [
+            "Added debug command line argument.",
+            "Backend updates for total ui overhaul."
+        ]
+    },
+    {
         "version": "Lyzer-Scraper 1.2.2",
         "notes": [
             "Added argument for notification manager.",
